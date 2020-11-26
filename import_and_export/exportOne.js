@@ -12,4 +12,7 @@ let valueOne = 400;
 function cardFee() {
     console.log(" export one")
 }
+let name= 'Asanka';
+
 export {valueOne,cardFee};
+export default name;
