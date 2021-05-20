@@ -1,0 +1,19 @@
+ratings.push(new Rating("p001", "Katie", new ImpressionComment("Best park ever!")))
+ratings.push(new Rating("p001", "Mike", new ImpressionComment("How did I not do this sooner?")))
+ratings.push(new Rating("p001", "Johan", new ImpressionComment("Classic, a must-see!")))
+ratings.push(new Rating("p001", "Hector", new ImpressionStars(4)))
+ratings.push(new Rating("p001", "Vidya", new ImpressionStars(5)))
+
+ratings.push(new Rating("p002", "Katie", new ImpressionComment("Sensational! Book early in the summer!")))
+ratings.push(new Rating("p002", "Mike", new ImpressionComment("It was amazing!")))
+ratings.push(new Rating("p002", "Marianne", new ImpressionComment("Simply inspirational!")))
+
+ratings.push(new Rating("p003", "Syd", new ImpressionStars(5)))
+ratings.push(new Rating("p003", "Peter", new ImpressionStars(3)))
+ratings.push(new Rating("p003", "X. Zheng", new ImpressionStars(4)))
+ratings.push(new Rating("p003", "Han", new ImpressionComment("Felt like out of this world!")))
+
+ratings.push(new Rating("p004", "Jim", new ImpressionComment("How did I not do this sooner?")))
+ratings.push(new Rating("p004", "S. Patel", new ImpressionComment("Classic, a must-see!")))
+ratings.push(new Rating("p004", "Gloria", new ImpressionStars(3)))
+ratings.push(new Rating("p004", "Samuel G.", new ImpressionStars(4)))

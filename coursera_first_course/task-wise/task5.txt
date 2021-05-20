@@ -1,0 +1,79 @@
+venueCatalogue.push(
+    // make a new tuple
+    [
+        new Park("p001", "Yosemite", "Home of the Half Dome and El Capitan.", "California", "images/yosemite.jpg"),
+
+        // array of ratings
+        [
+            new Rating("Katie", new ImpressionComment("Best park ever!")),
+            new Rating("Mike", new ImpressionComment("How did I not do this sooner?")),
+            new Rating("Johan", new ImpressionComment("Classic, a must-see!")),
+            new Rating("Hector", new ImpressionStars(4)),
+            new Rating("Vidya", new ImpressionStars(5))
+        ]
+    ]
+)
+
+venueCatalogue.push(
+    // make a new tuple
+    [
+        new Park("p002", "Yellowstone", "The first national park of the United States.", "Wyoming", "images/yellowstone.jpg"),
+
+        // array of ratings
+        [
+            new Rating("Katie", new ImpressionComment("Sensational! Book early in the summer!")),
+            new Rating("Mike", new ImpressionComment("It was amazing!")),
+            new Rating("Johan", new ImpressionComment("Simply inspirational!"))
+        ]
+    ]
+)
+
+venueCatalogue.push(
+    // make a new tuple
+    [
+        new Park("p003", "Volcano", "New lands in the making. Witness Mother Nature at work!", "Hawaii", "images/volcano.jpg"),
+
+        // array of ratings
+        [
+            new Rating("Syd", new ImpressionStars(5)),
+            new Rating("Peter", new ImpressionStars(3)),
+            new Rating("X. Zheng", new ImpressionStars(4)),
+            new Rating("Han", new ImpressionComment("Felt like out of this world!"))
+        ]
+    ]
+)
+
+venueCatalogue.push(
+    // make a new tuple
+    [
+        new Park("p004", "Zion", "Follow the paths where ancient native people and pioneers walked.", "Utah", "images/zion.jpg"),
+
+        // array of ratings
+        [
+            new Rating("Jim", new ImpressionComment("How did I not do this sooner?")),
+            new Rating("S. Patel", new ImpressionComment("Classic, a must-see!")),
+            new Rating("Gloria", new ImpressionStars(3)),
+            new Rating("Samuel G.", new ImpressionStars(4))
+        ]
+    ]
+)
+
+venueCatalogue.push(
+    // make a new tuple
+    [
+        new Park("p005", "Acadia", "Highest rocky headlands along the Atlantic coastline of the United States.", "Maine", "images/acadia.jpg"),
+
+        // array of ratings
+        []
+    ]
+)
+
+venueCatalogue.push(
+    // make a new tuple
+    [
+        new Park("p006", "Denali", "Solitude, tranquility and wilderness await.", "Alaska", "images/denali.jpg"),
+
+        // array of ratings
+        []
+    ]
+)
