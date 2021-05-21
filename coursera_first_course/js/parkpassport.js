@@ -12,6 +12,23 @@ class Park {
         this.image = image;
     }
 }
+var ImpressionType;
+(function (ImpressionType) {
+    ImpressionType[ImpressionType["comment"] = 0] = "comment";
+    ImpressionType[ImpressionType["starts"] = 1] = "starts";
+})(ImpressionType || (ImpressionType = {}));
+class ImpressionComment {
+    constructor(newComment) {
+        this.type = ImpressionType.comment;
+        this.comment = newComment;
+    }
+}
+class ImpressionStars {
+    constructor(newStarts) {
+        this.type = ImpressionType.starts;
+        this.numStars = newStarts;
+    }
+}
 class Rating {
     constructor(newVenueId, newName, newImpression) {
         this.venueId = newVenueId;
@@ -28,37 +45,40 @@ venueCatalogue.push(new Park("p004", "Zion", "Follow the paths where ancient nat
 venueCatalogue.push(new Park("p005", "Acadia", "Highest rocky headlands along the Atlantic coastline of the United States.", "Maine", "images/acadia.jpg"));
 venueCatalogue.push(new Park("p006", "Denali", "Solitude, tranquility and wilderness await.", "Alaska", "images/denali.jpg"));
 var ratings = [];
-ratings.push(new Rating("p001", "Katie", "Best park ever!"));
-ratings.push(new Rating("p001", "Mike", "How did I not do this sooner?"));
-ratings.push(new Rating("p001", "Johan", "Classic, a must-see!"));
-ratings.push(new Rating("p001", "Hector", 4));
-ratings.push(new Rating("p001", "Kamal", 3));
-ratings.push(new Rating("p002", "Katie", "Sensational! Book early in the summer!"));
-ratings.push(new Rating("p002", "Mike", "It was amazing!"));
-ratings.push(new Rating("p002", "Marianne", "Simply inspirational!"));
-ratings.push(new Rating("p003", "Syd", 5));
-ratings.push(new Rating("p003", "Peter", 3));
-ratings.push(new Rating("p003", "X. Zheng", 4));
-ratings.push(new Rating("p003", "Han", "Felt like out of this world!"));
-ratings.push(new Rating("p004", "Jim", "How did I not do this sooner?"));
-ratings.push(new Rating("p004", "S. Patel", "Classic, a must-see!"));
-ratings.push(new Rating("p004", "Gloria", 3));
-ratings.push(new Rating("p004", "Samuel G.", 4));
+ratings.push(new Rating("p001", "Katie", new ImpressionComment("Best park ever!")));
+ratings.push(new Rating("p001", "Mike", new ImpressionComment("How did I not do this sooner?")));
+ratings.push(new Rating("p001", "Johan", new ImpressionComment("Classic, a must-see!")));
+ratings.push(new Rating("p001", "Hector", new ImpressionStars(4)));
+ratings.push(new Rating("p001", "Vidya", new ImpressionStars(5)));
+ratings.push(new Rating("p002", "Katie", new ImpressionComment("Sensational! Book early in the summer!")));
+ratings.push(new Rating("p002", "Mike", new ImpressionComment("It was amazing!")));
+ratings.push(new Rating("p002", "Marianne", new ImpressionComment("Simply inspirational!")));
+ratings.push(new Rating("p003", "Syd", new ImpressionStars(5)));
+ratings.push(new Rating("p003", "Peter", new ImpressionStars(3)));
+ratings.push(new Rating("p003", "X. Zheng", new ImpressionStars(4)));
+ratings.push(new Rating("p003", "Han", new ImpressionComment("Felt like out of this world!")));
+ratings.push(new Rating("p004", "Jim", new ImpressionComment("How did I not do this sooner?")));
+ratings.push(new Rating("p004", "S. Patel", new ImpressionComment("Classic, a must-see!")));
+ratings.push(new Rating("p004", "Gloria", new ImpressionStars(3)));
+ratings.push(new Rating("p004", "Samuel G.", new ImpressionStars(4)));
 function buildImpressionSectionFor(targetVenueId) {
     const ratingsForVenue = ratings.filter(entry => entry.venueId == targetVenueId);
     var resultString = "";
     const htmlTemplate = `<p class="park-rating">~~impression~~ - ~~visitor-name~~</p>`;
     ratingsForVenue.forEach(entry => {
         var entryHtml = "";
-        switch (typeof entry.impression) {
-            case "string":
-                entryHtml = htmlTemplate.replace("~~impression~~", entry.impression);
+        switch (entry.impression.type) {
+            case ImpressionType.comment:
+                entryHtml = htmlTemplate.replace("~~impression~~", entry.impression.comment);
                 break;
-            case "number":
-                if (entry.impression >= 1 && entry.impression <= 5) {
-                    entryHtml = htmlTemplate.replace("~~impression~~", stars[entry.impression - 1]);
+            case ImpressionType.starts:
+                const startGiven = entry.impression.numStars;
+                if (startGiven >= 1 && startGiven <= 5) {
+                    entryHtml = htmlTemplate.replace("~~impression~~", stars[startGiven - 1]);
                 }
                 break;
+            default:
+                throw new Error("Unknown impression type");
         }
         entryHtml = entryHtml.replace("~~visitor-name~~", entry.visitorName);
         resultString += entryHtml;
