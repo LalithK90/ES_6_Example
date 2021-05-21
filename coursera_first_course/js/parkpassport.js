@@ -12,21 +12,28 @@ class Park {
         this.image = image;
     }
 }
-var ImpressionType;
-(function (ImpressionType) {
-    ImpressionType[ImpressionType["comment"] = 0] = "comment";
-    ImpressionType[ImpressionType["starts"] = 1] = "starts";
-})(ImpressionType || (ImpressionType = {}));
-class ImpressionComment {
-    constructor(newComment) {
-        this.type = ImpressionType.comment;
-        this.comment = newComment;
+class Impression {
+    constructor(newContent) {
+        this.content = newContent;
     }
 }
-class ImpressionStars {
-    constructor(newStarts) {
-        this.type = ImpressionType.starts;
-        this.numStars = newStarts;
+class ImpressionComment extends Impression {
+    constructor() {
+        super(...arguments);
+        this.toString = () => {
+            return this.content;
+        };
+    }
+}
+class ImpressionStars extends Impression {
+    constructor() {
+        super(...arguments);
+        this.toString = () => {
+            let stars = ["⭐️", "⭐️⭐️", "⭐️⭐️⭐️", "⭐️⭐️⭐️⭐️", "⭐️⭐️⭐️⭐️⭐️"];
+            if (this.content >= 1 && this.content <= 5) {
+                return stars[this.content - 1];
+            }
+        };
     }
 }
 class Rating {
@@ -35,7 +42,6 @@ class Rating {
         this.impression = newImpression;
     }
 }
-const stars = ["⭐️", "⭐️⭐️", "⭐️⭐️⭐️", "⭐️⭐️⭐️⭐️", "⭐️⭐️⭐️⭐️⭐️"];
 var venueCatalogue = [];
 venueCatalogue.push([
     new Park("p001", "Yosemite", "Home of the Half Dome and El Capitan.", "California", "images/yosemite.jpg"),
@@ -86,19 +92,7 @@ function buildImpressionSectionFor(ratingsForVenue) {
     const htmlTemplate = `<p class="park-rating">~~impression~~ - ~~visitor-name~~</p>`;
     ratingsForVenue.forEach(entry => {
         var entryHtml = "";
-        switch (entry.impression.type) {
-            case ImpressionType.comment:
-                entryHtml = htmlTemplate.replace("~~impression~~", entry.impression.comment);
-                break;
-            case ImpressionType.starts:
-                const startGiven = entry.impression.numStars;
-                if (startGiven >= 1 && startGiven <= 5) {
-                    entryHtml = htmlTemplate.replace("~~impression~~", stars[startGiven - 1]);
-                }
-                break;
-            default:
-                throw new Error("Unknown impression type");
-        }
+        entryHtml = htmlTemplate.replace("~~impression~~", entry.impression.toString);
         entryHtml = entryHtml.replace("~~visitor-name~~", entry.visitorName);
         resultString += entryHtml;
     });

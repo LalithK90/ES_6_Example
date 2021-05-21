@@ -15,27 +15,28 @@ class Park {
     }
 }
 
-enum ImpressionType {
-    comment,
-    starts
-}
-
-class ImpressionComment {
-    constructor(newComment: string) {
-    this.comment = newComment
-}
-
-    type = ImpressionType.comment
-    comment:string
-}
-
-class ImpressionStars{
-    constructor(newStarts: number) {
-        this.numStars = newStarts
+class Impression<T>{
+    constructor(newContent: T) {
+        this.content = newContent
     }
+    content: T
+    toString: ()=>string
+}
 
-    type = ImpressionType.starts
-    numStars : number
+class ImpressionComment extends Impression<string>{
+    toString = () => {
+        return this.content
+    }
+}
+
+class ImpressionStars extends Impression<number>{    
+    toString = () => {
+
+    let stars = ["⭐️", "⭐️⭐️", "⭐️⭐️⭐️", "⭐️⭐️⭐️⭐️", "⭐️⭐️⭐️⭐️⭐️"]
+        if (this.content >= 1 && this.content <= 5) {
+            return stars[this.content -1]
+        }
+    }
 }
 
 
@@ -50,7 +51,6 @@ class Rating {
     }
 }
 
- const stars = ["⭐️", "⭐️⭐️", "⭐️⭐️⭐️", "⭐️⭐️⭐️⭐️", "⭐️⭐️⭐️⭐️⭐️"]
 
 type ParkWithRating = [Park, Rating[]]
 
@@ -198,19 +198,7 @@ function buildImpressionSectionFor(ratingsForVenue: Rating[]) : string {
         
         var entryHtml = ""
 
-        switch (entry.impression.type) {
-            case ImpressionType.comment:
-                entryHtml = htmlTemplate.replace("~~impression~~", (entry.impression as ImpressionComment).comment )
-                break
-            case ImpressionType.starts:
-                const startGiven = (entry.impression as ImpressionStars).numStars
-                if (startGiven >= 1 && startGiven <= 5) {
-                    entryHtml = htmlTemplate.replace("~~impression~~", stars[startGiven - 1])
-                }
-                break
-            default:
-                throw new Error("Unknown impression type")
-                        }
+entryHtml = htmlTemplate.replace("~~impression~~", entry.impression.toString)
         entryHtml = entryHtml.replace("~~visitor-name~~", entry.visitorName)
         resultString += entryHtml
     })
